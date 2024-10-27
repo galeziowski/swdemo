@@ -1,0 +1,11 @@
+spring:
+  flyway:
+    out-of-order: true
+    locations: classpath:db/migration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vetDb
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      ddl-auto: validate
