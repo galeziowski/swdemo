@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,4 +20,7 @@ public class OwnerProfile {
     String name;
     String surname;
     List<PetProfile> pets;
+
+    @Builder.Default
+    String permissions = "";
 }

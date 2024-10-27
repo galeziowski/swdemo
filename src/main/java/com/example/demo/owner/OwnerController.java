@@ -1,7 +1,9 @@
 package com.example.demo.owner;
 
+import com.example.demo.exceptions.AuthorizationError;
 import com.example.demo.owner.model.OwnerProfile;
 import com.example.demo.owner.service.OwnerService;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +29,13 @@ public class OwnerController {
     }
 
     @GetMapping("/{id}")
-    public OwnerProfile getOwnerById(@PathVariable String id) {
-        return ownerService.getOwnerById(id);
+    public OwnerProfile getOwnerById(@PathVariable String id,
+                                     @Parameter(hidden = true) OwnerProfile loggedInProfile) {
+        if (loggedInProfile.getPermissions().equals("ADMIN")) {
+            return ownerService.getOwnerById(id);
+        } else {
+            throw new AuthorizationError("Nie masz uprawnien", "ktos");
+        }
     }
 
     @GetMapping("/auth/{id}")

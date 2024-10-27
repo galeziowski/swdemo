@@ -19,7 +19,7 @@ public class OwnerService {
             "2", List.of(PetProfile.builder().race("tortoise").name("Enri").build()));
 
     public static final List<OwnerProfile> OWNER_PROFILES = List.of(
-            OwnerProfile.builder().id("1").name("Łukasz").surname("Gałęziowski").pets(pets.get("2")).build(),
+            OwnerProfile.builder().id("1").name("Łukasz").surname("Gałęziowski").pets(pets.get("2")).permissions("ADMIN").build(),
             OwnerProfile.builder().id("2").name("Zyta").pets(pets.get("1")).build());
 
     public List<OwnerProfile> getOwners(){
