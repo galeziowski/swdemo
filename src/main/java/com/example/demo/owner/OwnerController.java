@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,11 +45,11 @@ public class OwnerController {
     }
 
     @PostMapping
-    public void createOwnerProfile(OwnerProfile ownerProfile){
+    public void createOwnerProfile(@RequestBody OwnerProfile ownerProfile){
     }
 
     @PutMapping
-    public OwnerProfile updateOwnerProfile(OwnerProfile ownerProfile){
+    public OwnerProfile updateOwnerProfile(@RequestBody OwnerProfile ownerProfile){
         return ownerProfile;
     }
 
