@@ -11,7 +11,9 @@ import java.util.List;
 public class OwnerService {
 
 
-    public static final List<OwnerProfile> OWNER_PROFILES = List.of(new OwnerProfile("1", "Łukasz"), new OwnerProfile("2", "Zyta"));
+    public static final List<OwnerProfile> OWNER_PROFILES = List.of(
+            OwnerProfile.builder().id("1").name("Łukasz").surname("Gałęziowski").build()
+            , OwnerProfile.builder().id("2").name("Zyta").build());
 
     public List<OwnerProfile> getOwners(){
         return OWNER_PROFILES;
