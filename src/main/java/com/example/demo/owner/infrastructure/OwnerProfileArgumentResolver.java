@@ -18,6 +18,6 @@ public class OwnerProfileArgumentResolver implements HandlerMethodArgumentResolv
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        return OwnerService.OWNER_PROFILES.get(1);
+        return OwnerService.OWNER_PROFILES.get(0);
     }
 }
