@@ -6,17 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class OwnerProfile {
+public class PetProfile {
 
-    String id;
     String name;
-    String surname;
-    List<PetProfile> pets;
+    String race;
 }
