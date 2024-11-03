@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Service
 public class ScheduleService {
@@ -18,11 +21,28 @@ public class ScheduleService {
     private static final Slot reserved = new Slot(LocalDateTime.of(2024, 11, 1, 9, 0), "1");
 
     public List<Slot> getSlots() {
-        List<Slot> slots = new ArrayList<>();
+        //List<Slot> slots = new ArrayList<>();
         long days = ChronoUnit.DAYS.between(FIRST_SCHEDULE.startingDate, FIRST_SCHEDULE.endingDate);
         long hoursForDay = FIRST_SCHEDULE.endingHour - FIRST_SCHEDULE.startingHour;
 
-        for (int i = 0; i < days; i++) {
+        List<Slot> slots = IntStream.range(0, (int) days)  // Stream through the number of days
+                .mapToObj(i -> FIRST_SCHEDULE.startingDate.plusDays(i))  // Get each date in range
+                .filter(date -> date.getDayOfWeek() != DayOfWeek.SATURDAY && date.getDayOfWeek() != DayOfWeek.SUNDAY)  // Exclude weekends
+                .flatMap(date ->
+                        IntStream.range(0, (int) hoursForDay)  // Stream through the working hours of each day
+                                .boxed()
+                                .flatMap(hour -> Stream.of(0, 30)  // Generate 0 and 30 minute slots for each hour
+                                        .map(minute -> new Slot(LocalDateTime.of(
+                                                date.getYear(),
+                                                date.getMonth(),
+                                                date.getDayOfMonth(),
+                                                FIRST_SCHEDULE.startingHour + hour,
+                                                minute), "1"))
+                                )
+                )
+                .collect(Collectors.toList());
+
+       /* for (int i = 0; i < days; i++) {
             for (int hour = 0; hour < hoursForDay; hour++) {
                 int finalI = i;
                 int finalHour = hour;
@@ -33,7 +53,7 @@ public class ScheduleService {
                             "1")));
                 }
             }
-        }
+        }*/
 
         slots.removeAll(List.of(reserved));
 
