@@ -4,6 +4,7 @@ Feature: Owner
 
   Scenario: 001 - Get owner by Id
     Given I have a user with name "Marta" and role "ADMIN"
+    And User Logs In
     When I read the OwnerProfile with id of user "Marta"
     Then I receive a correct response
     Then Owner has name set to "Marta"
@@ -11,6 +12,12 @@ Feature: Owner
 
   Scenario: 002 - Get owners list
     Given I have a user with name "Zyta" and role "ADMIN"
+    And User Logs In
     When Get owners
     Then I receive a correct response
     And Owners list has owner with name "Zyta"
+
+  Scenario: 002 - Owner not logged in
+    Given I have a user with name "Zyta" and role "ADMIN"
+    When Get owners
+    Then I receive an error

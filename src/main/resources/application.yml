@@ -9,3 +9,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://idp.example.com/.well-known/jwks.json

@@ -15,4 +15,6 @@ import java.util.UUID;
 public class CucumberContextHolder {
     private Response response;
     private Map<String, UUID> ownersList = new HashMap<>();
+    private boolean userLoggedIn;
+    private String currentlySelectedUser;
 }

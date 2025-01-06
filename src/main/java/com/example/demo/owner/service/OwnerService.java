@@ -20,8 +20,8 @@ public class OwnerService {
 
 
     public static final Map<String, List<PetProfile>> pets = Map.of(
-            "1", List.of(PetProfile.builder().race("dog").name("Arya").build()),
-            "2", List.of(PetProfile.builder().race("tortoise").name("Enri").build()));
+            "1", List.of(PetProfile.builder().name("Arya").build()),
+            "2", List.of(PetProfile.builder().name("Erni").build()));
 
     public static final List<OwnerProfile> OWNER_PROFILES = List.of(
             OwnerProfile.builder().id("1").name("Łukasz").surname("Gałęziowski").pets(pets.get("2")).permissions("ADMIN").build(),
@@ -36,7 +36,7 @@ public class OwnerService {
 
     public OwnerProfile getOwnerById(String id) {
         return ownerRepository.findById(UUID.fromString(id)).map(ownerEntity ->
-                        OwnerProfile.builder().id(ownerEntity.getId().toString()).name(ownerEntity.getName()).permissions(ownerEntity.getRole()).build())
+                        OwnerProfile.builder().id(ownerEntity.getId().toString()).name(ownerEntity.getName()).permissions(ownerEntity.getRole()).pets(ownerEntity.getPets().stream().map(pet -> PetProfile.builder().name(pet.getName()).build()).toList()).build())
                 .orElseThrow(() -> new NotFoundException("Nie znalzlem uzytkownika"));
     }
 
@@ -44,4 +44,5 @@ public class OwnerService {
         throw new AuthorizationError("No nie bardzo", "Lukasz");
 
     }
+
 }

@@ -1,17 +1,16 @@
 package com.example.demo.owner.entity;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,19 +18,16 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table
+@Setter
 @Builder
-public class Owner {
+public class Pet {
 
     @Id
     UUID id;
 
     String name;
 
-    String role;
-
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    @Builder.Default
-    List<Pet> pets = new ArrayList<>();
-
-
+    @ManyToOne
+            @JoinColumn(name = "owner_id")
+    Owner owner;
 }
